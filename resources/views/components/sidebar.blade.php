@@ -28,8 +28,8 @@
     </div>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item @if(Request::segment(1) == 'quran') active @endif">
-        <a class="nav-link" href="{{ route('quran.index') }}">
+    <li class="nav-item @if(Request::segment(1) == 'ngaos' or 'lihat') active @endif">
+        <a class="nav-link" href="{{ route('ngaos.index') }}">
             <i class="fas fa-quran"></i>
             <span>Ngaos Qur'an</span></a>
     </li>

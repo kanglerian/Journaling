@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DetailNgaos;
 use Illuminate\Http\Request;
 
-class QuranController extends Controller
+class DetailNgaosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,7 @@ class QuranController extends Controller
      */
     public function index()
     {
-        return view('pages.quran');
+        //
     }
 
     /**
@@ -34,7 +35,10 @@ class QuranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        DetailNgaos::create($data);
+
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +83,9 @@ class QuranController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = DetailNgaos::findOrFail($id);
+        $item->delete();
+
+        return redirect()->back();
     }
 }

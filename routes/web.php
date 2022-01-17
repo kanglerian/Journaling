@@ -18,4 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('dashboard', DashboardController::class);
-Route::resource('quran', QuranController::class);
+Route::resource('ngaos', NgaosController::class);
+Route::resource('ngaosdetail', DetailNgaosController::class);
