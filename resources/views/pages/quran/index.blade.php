@@ -27,11 +27,16 @@
                     </div>
                     <div class="form-row">
                         <div class="col-12">
+                            <input type="number" class="form-control mb-2" name="juz" placeholder="Juz">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
                             <div class="input-group mb-2">
                                 <select class="form-control" name="status">
                                     <option selected>Pilih Status</option>
                                     <option value="kholas">kholas</option>
-                                    <option value="la kholas">la kholas</option>
+                                    <option value="tidak kholas">tidak kholas</option>
                                 </select>
                             </div>
                         </div>
@@ -50,7 +55,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-12">
-                            <input type="text" class="form-control mb-2" name="ayat" placeholder="Ayat Terakhir">
+                            <input type="number" class="form-control mb-2" name="ayat" placeholder="Ayat Terakhir">
                         </div>
                     </div>
                     <div class="form-row">
@@ -75,8 +80,13 @@
                               <div class="col-md-6">
                                 <input type="month" class="form-control mb-2" name="tanggal">
                               </div>
-                              <div class="col-md-5">
-                                <input type="number" class="form-control mb-2" name="target" placeholder="Target berapa Juz?">
+                              <div class="col-md-3">
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" name="target" placeholder="Target">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">kali kholas</span>
+                                    </div>
+                                </div>
                               </div>
                               <div class="col-auto">
                                 <button type="submit" class="btn btn-primary btn-md mb-2"><i class="fas fa-save"></i></button>
@@ -103,10 +113,10 @@
                             <tr>
                                 <td>{{ $no + 1 }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('F Y') }}</td>
-                                <td>{{ $item->target }} Juz</td>
+                                <td>{{ $item->target }} kali</td>
                                 <td>
                                     <a href="{{ route('ngaos.show',$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
-                                    <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                                    <a href="{{ route('ngaos.edit',$item->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('ngaos.destroy',$item->id) }}" method="POST" class="form-delete">
                                         @csrf
                                         @method('DELETE')

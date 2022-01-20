@@ -16,6 +16,7 @@ class CreateDetailNgaosTable extends Migration
         Schema::create('detail_ngaos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('bulan_ngaos');
+            $table->integer('juz');
             $table->string('surah');
             $table->string('ayat');
             $table->string('status');

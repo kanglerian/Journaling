@@ -28,25 +28,25 @@
     </div>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item @if(Request::segment(1) == 'ngaos' or 'lihat') active @endif">
+    <li class="nav-item @if(Request::segment(1) == 'ngaos') active @endif">
         <a class="nav-link" href="{{ route('ngaos.index') }}">
             <i class="fas fa-quran"></i>
             <span>Ngaos Qur'an</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="tables.html">
             <i class="fas fa-pray"></i>
             <span>Shalat</span></a>
-    </li>
+    </li> --}}
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="tables.html">
             <i class="fas fa-coins"></i>
             <span>Sedekah</span></a>
-    </li>
+    </li> --}}
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

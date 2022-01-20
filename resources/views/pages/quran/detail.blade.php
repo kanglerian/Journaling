@@ -13,7 +13,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Target Tilawah</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->target }} Juz</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $item->target }} kali kholas</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-quran fa-2x text-gray-300"></i>
@@ -29,7 +29,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             Realisasi</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlah }} Juz</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlah }} kali kholas</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-quran fa-2x text-gray-300"></i>
@@ -68,12 +68,51 @@
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary mb-2">Target One Day One Juz</h6>
+        <div class="row justify-content-between">
+            <div class="col-12">
+                <form action="{{ route('ngaosdetail.store') }}" method="POST">
+                    @csrf
+                    <div class="form-row align-items-center">
+                    <input type="hidden" name="bulan_ngaos" value="{{ $item->id }}">
+                    <div class="col-md-2 mt-2">
+                      <input type="number" class="form-control mb-2" name="juz" placeholder="Juz">
+                    </div>
+                      <div class="col-md-2">
+                        <select class="form-control" name="status">
+                            <option selected>Pilih Status</option>
+                            <option value="kholas">kholas</option>
+                            <option value="tidak kholas">tidak kholas</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <select class="form-control" name="surah">
+                            <option selected>Pilih Surah</option>
+                            @foreach ($surah as $no => $item)
+                            <option value="{{ $item }}">{{ $item }} [{{ $no + 1 }}]</option>
+                            @endforeach
+                        </select>
+                      </div>
+                      <div class="col-md-2 mt-2">
+                        <input type="number" class="form-control mb-2" name="ayat" placeholder="Ayat Terakhir">
+                      </div>
+                      <div class="col-auto mt-2">
+                        <button type="submit" class="btn btn-primary btn-md mb-2"><i class="fas fa-save"></i></button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="card-body">
-        {{-- <h6 class="font-weight-bold my-2">Target: {{ $item->target }} Realisasi: {{ $jumlah }} Persentase: {{ $persentase = number_format($jumlah / $item->target * 100) }}%</h6> --}}
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>#</th>
+                        <th>Juz</th>
                         <th>Surat</th>
                         <th>Ayat Terakhir</th>
                         <th>Status</th>
@@ -83,23 +122,46 @@
                 <tbody>
                     @foreach ($ngaji as $item)
                         <tr>
-                            <td >{{ $item->surah }}</td>
-                            <td>{{ $item->ayat }}</td>
-                            <td>
-                                @if($item->status == 'kholas')
-                                    <span class="badge badge-success"><i class="fas fa-check"></i></span>
-                                @else
-                                    <span class="badge badge-danger"><i class="fas fa-times"></i></span>
-                                @endif
-                            </td>
-                            <td width="15%">
-                                <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                <form action="{{ route('ngaosdetail.destroy',$item->id) }}" method="POST" class="form-delete">
+                            <form action="{{ route('ngaosdetail.update',$item->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <td width="2%" class="text-center @if($item->status == 'kholas') bg-success @else bg-danger @endif">
+                                    @if($item->status == 'kholas')
+                                        <button class="btn btn-success btn-sm"><i class="fas fa-check"></i></button>
+                                    @else
+                                        <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+                                    @endif
+                                </td>
+                                <td><input type="number" class="form-control" name="juz" value="{{ $item->juz }}"></td>
+                                <td>
+                                    <select name="surah" class="form-control surah">
+                                        <option value="{{ $item->surah }}">{{ $item->surah }}</option>
+                                        <option value="Tidak ada">Tidak ada</option>
+                                        @foreach ($surah as $no => $sur)
+                                        <option value="{{ $sur }}">{{ $sur }} [{{ $no + 1 }}]</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="ayat" value="{{ $item->ayat }}">
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control">
+                                        <option value="{{ $item->status }}">{{ $item->status }}</option>
+                                        <option value="kholas">kholas</option>
+                                        <option value="tidak kholas">tidak kholas</option>
+                                    </select>
+                                </td>
+                                <td width="15%">
+                                    <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save"></i></button>
+                                {{-- <form action="{{ route('ngaosdetail.destroy',$item->id) }}" method="POST" class="form-delete">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
+                                </form> --}}
+
+                                </td>
+                            </form>
                         </tr>
                     @endforeach
                 </tbody>
@@ -109,3 +171,6 @@
 </div>
 
 @endsection
+
+@push('after-script')
+@endpush

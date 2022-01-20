@@ -70,7 +70,9 @@
         </div>
     </div>
 
+    @yield('modal')
     @include('includes.script')
+    @stack('after-script')
 
 </body>
 

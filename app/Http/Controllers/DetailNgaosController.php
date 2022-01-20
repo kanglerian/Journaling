@@ -60,7 +60,10 @@ class DetailNgaosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = DetailNgaos::findOrFail($id);
+        return view('pages.quran.edit-detailngaos')->with([
+            'item' => $item
+        ]);
     }
 
     /**
@@ -72,7 +75,11 @@ class DetailNgaosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $item = DetailNgaos::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->back();
     }
 
     /**

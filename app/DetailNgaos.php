@@ -14,7 +14,7 @@ class DetailNgaos extends Model
     protected $table = 'detail_ngaos';
 
     protected $fillable = [
-        'bulan_ngaos','surah','ayat','status'
+        'bulan_ngaos','juz','surah','ayat','status'
     ];
 
     public function ngaos(){
